@@ -1,0 +1,19 @@
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: app-tasks
+spec:
+  steps:
+    - name: cleanup
+      image: python:3.9
+      script: |
+        #!/bin/sh
+        echo "Cleaning workspace"
+        rm -rf __pycache__/
+
+    - name: run-tests
+      image: python:3.9
+      script: |
+        #!/bin/sh
+        pip install nose
+        nosetests
